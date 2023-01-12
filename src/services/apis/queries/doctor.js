@@ -34,6 +34,13 @@ export const getDoctorById = gql`
           dateOfBirth
         }
       }
+      users {
+        id
+        dateOfBirth
+        email
+        name
+        phone
+      }
     }
   }
 `;

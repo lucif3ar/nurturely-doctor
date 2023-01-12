@@ -1,7 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const appointmentSlice = createSlice({
-  name: 'appointments',
+  name: "appointments",
 
   initialState: [],
   reducers: {
@@ -20,7 +20,7 @@ const appointmentSlice = createSlice({
     },
     approveAppointment: (state, action) => {
       const index = state.findIndex((item) => item.id === action.payload);
-      state[index].status = 'approved';
+      state[index].status = "approved";
     },
   },
 });

@@ -5,21 +5,20 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useQuery } from '@apollo/client';
-import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
 
 import { getDoctorById } from '../services/apis/queries/doctor';
 import { Colors } from '../constants/color';
 import { doctorActions } from '../store/doctor';
-
-import Header from '../components/home/Header';
-import AppointmentList from '../components/home/AppointmentList';
 import { appointmentActions } from '../store/appointment';
+import { userActions } from '../store/user';
+
+import Header from '../components/appointments/Header';
+import AppointmentList from '../components/appointments/AppointmentList';
+import PatientList from '../components/home/PatientList';
 
 export default HomeScreen = () => {
   const dispatch = useDispatch();
-  const [selectedTab, setSelectedTab] = useState('Today');
   const [skip, setSkip] = React.useState(false);
   const [myClientID, setMyClientID] = useState('');
 
@@ -36,6 +35,7 @@ export default HomeScreen = () => {
       dispatch(
         appointmentActions.setAppointments(data.doctor_by_pk.appointments)
       );
+      dispatch(userActions.setUsers(data.doctor_by_pk.users))
       dispatch(doctorActions.setDoctor(data.doctor_by_pk));
     },
   });
@@ -67,11 +67,7 @@ export default HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Header selectedTab={selectedTab} />
-      <AppointmentList
-        selectedTab={selectedTab}
-        setSelectedTab={setSelectedTab}
-      />
+      <PatientList />
     </View>
   );
 };

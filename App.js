@@ -13,7 +13,7 @@ import WelcomeScreen from './src/screens/WelcomeScreen';
 import PhoneVerificationScreen from './src/screens/PhoneVerificationScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
 import HomeScreen from './src/screens/HomeScreen';
-import ProfileScreen from './src/screens/ProfileScreen';
+import AppointmentsScreen from './src/screens/AppointmentsScreen';
 
 import { Colors } from './src/constants/color';
 import { createAppolloClient } from './src/services/apollo/apolloClient';
@@ -43,10 +43,10 @@ const TabsScreen = () => {
         }}
       />
       <Tab.Screen
-        name="Patients"
-        component={ProfileScreen}
+        name="Appointments"
+        component={AppointmentsScreen}
         options={{
-          title: 'My Patients',
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="people" color={color} size={size} />
           ),
@@ -69,11 +69,15 @@ const TabsScreen = () => {
 export default function App() {
   const [client] = useState(createAppolloClient);
   const [myClientID, setMyClientID] = useState('');
+  const [initialRoute, setInitialRoute] = useState('Tabs');
 
   useEffect(() => {
     AsyncStorage.getItem('myClientID').then((myClientID) => {
       setMyClientID(myClientID);
     });
+    if(myClientID === '') {
+      setInitialRoute('Welcome')
+    }
   }, []);
 
   return (
@@ -81,7 +85,7 @@ export default function App() {
       <ApolloProvider client={client}>
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName={myClientID === '' ? 'Welcome' : 'Tabs'}
+            initialRouteName={initialRoute}
             screenOptions={{
               headerStyle: { backgroundColor: Colors.primary500 },
               headerTintColor: Colors.white,

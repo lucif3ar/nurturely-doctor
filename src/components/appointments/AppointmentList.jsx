@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { Colors } from '../../constants/color';
 
 import AppointmentCard from './AppointmentCard';
-import TabList from './TabList';
+import TabList from '../home/TabList';
 
 export default AppointmentList = ({ selectedTab, setSelectedTab }) => {
   const appointments = useSelector((state) => state.appointments);
