@@ -1,7 +1,6 @@
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import React, { useState, useEffect } from 'react';
 
-import Spinner from 'react-native-loading-spinner-overlay';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useQuery } from '@apollo/client';
@@ -13,9 +12,8 @@ import { doctorActions } from '../store/doctor';
 import { appointmentActions } from '../store/appointment';
 import { userActions } from '../store/user';
 
-import Header from '../components/appointments/Header';
-import AppointmentList from '../components/appointments/AppointmentList';
 import PatientList from '../components/home/PatientList';
+import LoadingIndicator from '../components/ui/LoadingIndicator';
 
 export default HomeScreen = () => {
   const dispatch = useDispatch();
@@ -46,14 +44,7 @@ export default HomeScreen = () => {
 
   if (loading) {
     return (
-      <View style={styles.loadingContainer}>
-        <Spinner
-          color={Colors.primary500}
-          visible={loading}
-          textContent={'Loading up your Appointments'}
-          textStyle={styles.spinnerTextStyle}
-        />
-      </View>
+      <LoadingIndicator loadingContent="Getting the App ready!"/>
     );
   }
 

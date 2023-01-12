@@ -14,6 +14,7 @@ import PhoneVerificationScreen from './src/screens/PhoneVerificationScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import AppointmentsScreen from './src/screens/AppointmentsScreen';
+import LoadingIndicator from './src/components/ui/LoadingIndicator';
 
 import { Colors } from './src/constants/color';
 import { createAppolloClient } from './src/services/apollo/apolloClient';
@@ -69,23 +70,25 @@ const TabsScreen = () => {
 export default function App() {
   const [client] = useState(createAppolloClient);
   const [myClientID, setMyClientID] = useState('');
-  const [initialRoute, setInitialRoute] = useState('Tabs');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     AsyncStorage.getItem('myClientID').then((myClientID) => {
       setMyClientID(myClientID);
+      setLoading(false)
     });
-    if(myClientID === '') {
-      setInitialRoute('Welcome')
-    }
   }, []);
+
+  if(loading) {
+    return <LoadingIndicator loadingContent="Starting the App"/>
+  }
 
   return (
     <Provider store={store}>
       <ApolloProvider client={client}>
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName={initialRoute}
+            initialRouteName={myClientID === '' ? 'Welcome': 'Tabs'}
             screenOptions={{
               headerStyle: { backgroundColor: Colors.primary500 },
               headerTintColor: Colors.white,
