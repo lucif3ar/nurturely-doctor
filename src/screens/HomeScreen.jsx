@@ -12,6 +12,7 @@ import { doctorActions } from '../store/doctor';
 import { appointmentActions } from '../store/appointment';
 import { userActions } from '../store/user';
 
+import Header from '../components/home/Header';
 import PatientList from '../components/home/PatientList';
 import LoadingIndicator from '../components/ui/LoadingIndicator';
 
@@ -58,6 +59,7 @@ export default HomeScreen = () => {
 
   return (
     <View style={styles.container}>
+      <Header />
       <PatientList />
     </View>
   );

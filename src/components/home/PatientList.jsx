@@ -1,18 +1,31 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, ScrollView } from "react-native";
 import React from "react";
 
 import { useSelector } from "react-redux";
+
+import { Colors } from "../../constants/color";
+
+import PatientCard from "./PatientCard";
 
 export default function PatientList() {
   const users = useSelector((state) => state.users)
 
   return (
-    <View>
+    <ScrollView style={styles.container}>
       {users.map((user) => {
-        return <Text key={user.id}>{user.name}</Text>
+        console.log(user)
+        return <PatientCard key={user.id} user={user}/>
       })}
-    </View>
+    </ScrollView>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.white,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+    padding: 16
+  }
+});

@@ -14,6 +14,8 @@ import PhoneVerificationScreen from './src/screens/PhoneVerificationScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import AppointmentsScreen from './src/screens/AppointmentsScreen';
+import ProfileScreen from './src/screens/ProfileScreen';
+
 import LoadingIndicator from './src/components/ui/LoadingIndicator';
 
 import { Colors } from './src/constants/color';

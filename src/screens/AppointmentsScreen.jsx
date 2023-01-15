@@ -1,8 +1,6 @@
 import { StyleSheet, Text, View, Button } from 'react-native';
 import React, {useState} from 'react';
 
-import { useNavigation } from '@react-navigation/native';
-
 import Header from '../components/appointments/Header';
 import AppointmentList from '../components/appointments/AppointmentList';
 
