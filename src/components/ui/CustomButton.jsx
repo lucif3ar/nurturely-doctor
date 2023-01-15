@@ -18,13 +18,13 @@ export default CustomButton = ({
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    padding: 8,
+    padding: 10,
     borderRadius: 12,
     marginVertical: 8,
   },
   buttonText: {
     fontWeight: '500',
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: 18,
   },
 });

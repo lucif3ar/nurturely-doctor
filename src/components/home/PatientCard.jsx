@@ -1,20 +1,47 @@
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, Linking } from "react-native";
 import React from "react";
+
+import { Ionicons } from "@expo/vector-icons";
 
 import { Colors } from "../../constants/color";
 
 import CustomButton from "../ui/CustomButton";
 
 export default PatientCard = ({ user }) => {
+  const dialCall = () => {
+    let phoneNumber = '';
+    if (Platform.OS === 'android') { phoneNumber = `tel:${user.phone}`; }
+    else {phoneNumber = `telprompt:${user.phone}`; }
+    Linking.openURL(phoneNumber);
+ };
+
   return (
     <View style={styles.container}>
       <View style={styles.details}>
         <View style={styles.imageContainer}>
-          <Image source={require('../../assets/images/doctor-profile.jpg')} style={styles.image}/>
+          <Image
+            source={require("../../assets/images/doctor-profile.jpg")}
+            style={styles.image}
+          />
         </View>
         <View style={styles.infoContainer}>
           <Text style={styles.heading}>{user.name}</Text>
-          <Text style={styles.subHeading}>+91 {user.phone}</Text>
+          <View style={styles.icons}>
+            <Ionicons
+              name="call"
+              size={20}
+              color={Colors.white}
+              style={styles.icon}
+              onPress={() => dialCall()}
+            />
+            <Ionicons
+              name="mail"
+              size={20}
+              color={Colors.white}
+              style={styles.icon}
+              onPress={() => Linking.openURL(`mailto:${user.email}?subject=NurturelyDoctor&body=Greetings`)}
+            />
+          </View>
         </View>
         <View style={styles.dobContainer}>
           <Text style={styles.subHeading}>Age:</Text>
@@ -28,7 +55,7 @@ export default PatientCard = ({ user }) => {
           textColor={Colors.white}
           onPress={() => {}}
         />
-        <CustomButton 
+        <CustomButton
           title="Remove Patient"
           backgroundColor={Colors.white}
           textColor={Colors.primary500}
@@ -50,34 +77,45 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     flex: 1,
-    padding: 8
+    padding: 8,
   },
   infoContainer: {
     flex: 3,
-    padding: 8
+    padding: 8,
   },
   dobContainer: {
     flex: 1,
-    padding: 8
+    padding: 8,
   },
   buttons: {
     flexDirection: "row",
-    alignItems: 'stretch',
-    justifyContent: 'space-around'
+    alignItems: "stretch",
+    justifyContent: "space-around",
   },
   heading: {
     fontSize: 20,
     color: Colors.white,
-    fontWeight: 'bold'
+    fontWeight: "bold",
   },
   subHeading: {
     fontSize: 16,
     color: Colors.grey,
-    fontWeight: '500'
+    fontWeight: "500",
   },
   image: {
     width: 50,
     height: 50,
     borderRadius: 25,
-  }
+  },
+  icons: {
+    flexDirection: "row",
+    marginTop: 4,
+  },
+  icon: {
+    borderWidth: 1,
+    borderColor: Colors.white,
+    borderRadius: 50,
+    padding: 6,
+    marginRight: 16,
+  },
 });
